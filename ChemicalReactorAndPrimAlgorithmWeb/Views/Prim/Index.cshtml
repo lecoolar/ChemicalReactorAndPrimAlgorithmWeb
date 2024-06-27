@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "Алгоритм Прима";
+}
+
+<h2>Алгоритм Прима</h2>
+
+@using (Html.BeginForm())
+{
+    <div>
+        <label for="vertices">Количество вершин:</label>
+        <input type="number" id="vertices" name="vertices" required min="1" onchange="createMatrix()" />
+    </div>
+    <div id="matrixContainer" style="display:none;"></div>
+    <button type="submit">Запустить алгоритм</button>
+}
+
+@section Scripts {
+    <script>
+        function createMatrix() {
+            var vertices = document.getElementById("vertices").value;
+            var container = document.getElementById("matrixContainer");
+            container.innerHTML = "";
+
+            if (vertices > 0) {
+                container.style.display = "block"; // Показать контейнер таблицы
+                var table = document.createElement("table");
+
+                for (var i = 0; i < vertices; i++) {
+                    var row = document.createElement("tr");
+
+                    for (var j = 0; j < vertices; j++) {
+                        var cell = document.createElement("td");
+                        var input = document.createElement("input");
+                        input.type = "text";
+                        input.name = "weightMatrix";
+                        input.onkeydown = function (e) {
+                            if (e.key === "Enter") {
+                                e.preventDefault();
+                                return false;
+                            }
+                        };
+                        if (i === j) {
+                            input.value = "-";
+                            input.readOnly = true; // Сделать неизменяемым
+                        } else {
+                            input.placeholder = "∞";
+                            input.value = "";
+                        }
+                        cell.appendChild(input);
+                        row.appendChild(cell);
+                    }
+
+                    table.appendChild(row);
+                }
+
+                container.appendChild(table);
+            } else {
+                container.style.display = "none"; // Скрыть контейнер таблицы
+            }
+        }
+
+        // Предотвратить отправку формы по нажатию клавиши Enter
+        document.addEventListener('keydown', function (e) {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                return false;
+            }
+        });
+    </script>
+}

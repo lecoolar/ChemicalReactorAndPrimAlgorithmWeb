@@ -1,0 +1,29 @@
+﻿@model ChemicalReactorAndPrimAlgorithmWeb.Models.PrimResult
+
+@{
+    ViewBag.Title = "Результат алгоритма Прима";
+}
+
+<h2>Результат алгоритма Прима</h2>
+
+<p>Общий вес: @Model.TotalWeight</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Вершина 1</th>
+            <th>Вершина 2</th>
+            <th>Вес</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var edge in Model.Edges)
+        {
+            <tr>
+                <td>@edge.Item1</td>
+                <td>@edge.Item2</td>
+                <td>@edge.Item3</td>
+            </tr>
+        }
+    </tbody>
+</table>
